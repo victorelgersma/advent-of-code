@@ -52,7 +52,6 @@ for k,v in ipairs(table1) do
             count = count + 1
         end
     end
-    print('found', count, 'elements')
     score = score + count * v
 end
 
