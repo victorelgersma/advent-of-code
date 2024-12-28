@@ -1,12 +1,25 @@
 # Advent of code 1
 
+## Summary
 
-## Part 1
+We first use awk to separate out the columns, then use sort to sort them separately and write them to a temporary file. We then use paste to stick them back together, allowing us to run further awk commands (like subtracting every row). Finally we use awk to sum all the differences.
+
+```sh
+#!/bin/sh
+awk '{print $1}' input | sort > list1.tmp
+awk '{print $2}' input | sort > list2.tmp
+paste list1.tmp list2.tmp | awk '{print $2-$1}' | awk '{if ($1>0) { print $1 } else {print -$1} }' | awk '{s+=$1} END {print s}'
+rm list1.tmp
+rm list2.tmp
+```
+
+The code is available on [github](https://github.com/victorelgersma/advent-of-code)
+
+## Explanation / Method
+
 We are given two lists which we need to sort, then create a third list which is the difference of the two lists, and then sum that third list.
 
 We can get the first (second) column with awk using the `print $1` or `print $2` function, as follows: 
-
-Inspecting the second list:
 
 ```sh
 $ awk '{print $2}' input | head
